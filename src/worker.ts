@@ -129,7 +129,9 @@ function landingPage(): string {
 .task .budget{font-size:.7rem;color:#475569;margin-top:.25rem}
 footer{text-align:center;padding:2rem;color:#475569;font-size:.75rem}
 </style></head><body>
-<div class="hero"><h1>💤 Dream Engine</h1><p>Background consolidation protocol — how vessels dream</p></div>
+<div class="hero">
+      <img src="https://cocapn-logos.casey-digennaro.workers.dev/img/cocapn-logo-v1.png" alt="Cocapn" style="width:64px;height:auto;margin-bottom:.5rem;border-radius:8px;display:block;margin-left:auto;margin-right:auto">
+      <h1>💤 Dream Engine</h1><p>Background consolidation protocol — how vessels dream</p></div>
 <div class="concept">
 <div class="concept"><h3>🌙 Coding Plan Strategy</h3><p>z.ai, MiniMax, Alibaba have time-based limits. We GAME them by running background tasks during user idle periods. 80-90% cost reduction on dreaming.</p></div>
 <div class="concept"><h3>🧠 Structural Protocol</h3><p>This isn't a vessel — it's HOW all vessels do background work. Every vessel can dream. The protocol defines: idle detection, task queuing, model selection, budget enforcement.</p></div>

@@ -1,0 +1,8 @@
+name = "dream-engine"
+main = "src/worker.ts"
+compatibility_date = "2024-01-01"
+account_id = "049ff5e84ecf636b53b162cbb580aae6"
+
+[[kv_namespaces]]
+binding = "DREAM_KV"
+id = "cdb3676813cf4ca1b5ce402e283fc678"

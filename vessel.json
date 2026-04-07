@@ -1,0 +1,14 @@
+{
+  "name": "dream-engine",
+  "type": "cocapn-vessel",
+  "version": "1.0.0",
+  "category": "infrastructure",
+  "capabilities": [
+    "content-generation",
+    "dream-cycle",
+    "seeding"
+  ],
+  "description": "Automated content engine",
+  "fleet": "https://the-fleet.casey-digennaro.workers.dev",
+  "cocapn": "https://cocapn.ai"
+}

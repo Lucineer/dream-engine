@@ -1,54 +1,67 @@
-# dream-engine 🌙
+# dream-engine
 
-You don't need your compute sitting idle while you sleep.
+You don't need to sit and watch AI load spinners.
 
-A background content engine that generates narrative during off-peak hours. Runs on the Cocapn Fleet.
+This is a background content engine for the Cocapn Fleet. It schedules and runs high-latency generative tasks, like multi-character narrative, during configured off-peak hours.
 
 ---
 
-## Why this exists
-Agent runtimes often maintain constant readiness, consuming resources even during inactivity. This service schedules and executes slower, non-urgent tasks—like content generation and data processing—during designated idle periods, typically overnight.
+## Why it exists
 
-## Live reference
-View a running instance in the Fleet:  
-https://the-fleet.casey-digennaro.workers.dev
+Most AI tools run expensive, long-generation work synchronously. This consumes your active time and uses compute during peak hours. This engine schedules that work for periods of low activity, typically overnight.
 
-## What makes this different
-*   **Cost-effective**: Designed to operate within Cloudflare's free tier for most use cases.
-*   **Self-contained**: No external queues or databases required; runs in a single Worker.
-*   **Non-intrusive**: Executes work during configured downtime; results are available later.
-*   **Fork-first**: You run your own copy and control all modifications and data.
+---
+
+## How it's built
+
+*   Runs on standard Cloudflare Workers with zero dependencies and no build step.
+*   Fork-first: you own the entire runtime. There are no account tiers.
+*   Budget guardrails are enforced at the protocol layer.
+*   Operates unattended once configured.
+
+---
+
+## Live Reference
+
+View example schedules and job structures at the live fleet instance:
+[https://the-fleet.casey-digennaro.workers.dev](https://the-fleet.casey-digennaro.workers.dev)
 
 ---
 
 ## Quick Start
-1.  Fork and clone the repository.
-2.  Log in and deploy to Cloudflare Workers using Wrangler.
-3.  Configure the schedule and tasks in the source code to match your idle hours.
+
+1.  **Fork** this repository.
+2.  **Deploy** to Cloudflare Workers using `wrangler deploy`.
+3.  **Configure** the `DreamSchedule` and `DreamTask` definitions in the source code for your goals and idle hours.
 
 ## Architecture
-A time-scheduled job runner for high-latency AI tasks. It uses Cloudflare's KV for persistent job storage and enforces daily token budgets. This is not designed for real-time interaction.
+
+This is a structural protocol for the Cocapn Fleet. It defines how vessels perform background consolidation: scheduling non-urgent, high-latency work (like content generation or simulation) to execute during configured idle periods. It uses Cloudflare KV for job persistence and enforces daily token budgets.
 
 ## Key Features
-*   **Configurable scheduling**: Queue work for specific time windows.
-*   **Narrative personas**: Generate content through distinct character voices.
-*   **Token budget enforcement**: Hard daily limit to control spending.
-*   **Persistent job queue**: Survives Worker restarts with retry logic.
-*   **Extensible task system**: Supports wiki updates, memory processing, and simulation tasks.
-*   **Zero runtime dependencies**: Uses standard JavaScript on Cloudflare Workers.
 
-## One limitation
-This requires a Cloudflare account and uses its ecosystem (Workers, KV). You cannot run it on other platforms without modification.
+*   **Scheduled Execution**: Queues work for specific time windows using UTC cron syntax.
+*   **Configurable Personas**: Generates content through distinct, stateful narrative agents defined in code.
+*   **Hard Daily Budgets**: Enforces a strict maximum token spend per day.
+*   **Persistent Queue**: Job state survives Worker restarts with retry logic.
+*   **Extensible Tasks**: Built-in types for wiki population and distillation. You define custom `DreamTask` types.
+*   **Zero Dependencies**: Written in pure JavaScript.
 
-## Customization
-Edit the `DreamTask` and `DreamSchedule` definitions to implement your specific background workloads, timezone, and generation goals.
+## Current Limitation
+
+The scheduler and task definitions require manual code modification. There is no administrative UI; configuration is managed through the source.
+
+## Implement Your Workload
+
+Edit the `DreamTask` type definitions and `DreamJob` execution logic to implement your specific background workloads. Configure the `DreamSchedule` with your idle window (e.g., `startTime: "23:00"`).
 
 ## Contributing
-Issues and pull requests are welcome. This is a core Fleet service; improvements to scheduling, error handling, or model integrations are appreciated.
+
+Issues and pull requests are welcome. Improvements to scheduling efficiency, error handling, or provider integrations are appreciated.
 
 ---
 
-MIT · Superinstance & Lucineer (DiGennaro et al.)
+MIT License · Superinstance & Lucineer (DiGennaro et al.)
 
 ---
 

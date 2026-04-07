@@ -1,71 +1,57 @@
-<p align="center">
-  <img src="https://raw.githubusercontent.com/Lucineer/capitaine/master/docs/capitaine-logo.jpg" alt="Capitaine" width="120">
-</p>
+# dream-engine 🌙
 
-<h1 align="center">dream-engine</h1>
+You don't need your compute sitting idle while you sleep.
 
-<p align="center">Background idea generation and research pipeline.</p>
-
-<p align="center">
-  <a href="https://github.com/Lucineer/dream-engine/issues">Issues</a> ·
-  <a href="#the-fleet">The Fleet</a>
-</p>
+A background content engine that generates narrative during off-peak hours. Runs on the Cocapn Fleet.
 
 ---
 
-**Fleet service** · Powered by [Capitaine](https://github.com/Lucineer/capitaine) · [Cocapn](https://github.com/Lucineer/cocapn)
+## Why this exists
+Agent runtimes often maintain constant readiness, consuming resources even during inactivity. This service schedules and executes slower, non-urgent tasks—like content generation and data processing—during designated idle periods, typically overnight.
 
-A cocapn fleet service running on Cloudflare Workers.
+## Live reference
+View a running instance in the Fleet:  
+https://the-fleet.casey-digennaro.workers.dev
+
+## What makes this different
+*   **Cost-effective**: Designed to operate within Cloudflare's free tier for most use cases.
+*   **Self-contained**: No external queues or databases required; runs in a single Worker.
+*   **Non-intrusive**: Executes work during configured downtime; results are available later.
+*   **Fork-first**: You run your own copy and control all modifications and data.
+
+---
 
 ## Quick Start
+1.  Fork and clone the repository.
+2.  Log in and deploy to Cloudflare Workers using Wrangler.
+3.  Configure the schedule and tasks in the source code to match your idle hours.
 
-```bash
-gh repo fork Lucineer/dream-engine --clone
-cd dream-engine
-npx wrangler login
-npx wrangler deploy
-```
+## Architecture
+A time-scheduled job runner for high-latency AI tasks. It uses Cloudflare's KV for persistent job storage and enforces daily token budgets. This is not designed for real-time interaction.
 
-## The Fleet
+## Key Features
+*   **Configurable scheduling**: Queue work for specific time windows.
+*   **Narrative personas**: Generate content through distinct character voices.
+*   **Token budget enforcement**: Hard daily limit to control spending.
+*   **Persistent job queue**: Survives Worker restarts with retry logic.
+*   **Extensible task system**: Supports wiki updates, memory processing, and simulation tasks.
+*   **Zero runtime dependencies**: Uses standard JavaScript on Cloudflare Workers.
 
+## One limitation
+This requires a Cloudflare account and uses its ecosystem (Workers, KV). You cannot run it on other platforms without modification.
 
-<details>
-<summary><strong>⚓ The Fleet</strong></summary>
+## Customization
+Edit the `DreamTask` and `DreamSchedule` definitions to implement your specific background workloads, timezone, and generation goals.
 
-**Flagship vessels**
+## Contributing
+Issues and pull requests are welcome. This is a core Fleet service; improvements to scheduling, error handling, or model integrations are appreciated.
 
-- [cocapn.ai](https://github.com/Lucineer/capitaine)
-- [personallog.ai](https://github.com/Lucineer/personallog-ai)
-- [businesslog.ai](https://github.com/Lucineer/businesslog-ai)
-- [studylog.ai](https://github.com/Lucineer/studylog-ai)
-- [makerlog.ai](https://github.com/Lucineer/makerlog-ai)
-- [playerlog.ai](https://github.com/Lucineer/playerlog-ai)
-- [dmlog.ai](https://github.com/Lucineer/dmlog-ai)
-- [reallog.ai](https://github.com/Lucineer/reallog-ai)
-- [deckboss.ai](https://github.com/Lucineer/deckboss-ai)
-
-**Fleet services**
-
-- [Fleet Catalog](https://github.com/Lucineer/capitaine/blob/master/docs/fleet/FLEET.md)
-- [Git Agent (full)](https://github.com/Lucineer/git-agent)
-- [Cocapn Lite (minimal)](https://github.com/Lucineer/cocapn-lite)
-- [Fleet Orchestrator](https://github.com/Lucineer/fleet-orchestrator)
-- [Dead Reckoning Engine](https://github.com/Lucineer/dead-reckoning-engine)
-- [Dream Engine](https://github.com/Lucineer/dream-engine)
-- [Seed UI (5 layers)](https://github.com/Lucineer/seed-ui)
-
-**For power users**
-
-- [Cocapn Lite (tabula rasa)](https://github.com/Lucineer/cocapn-lite)
-- [Cocapn (core platform)](https://github.com/Lucineer/cocapn)
-- [ZeroClaw (framework)](https://github.com/Lucineer/zeroclaw)
-
-[View all 106 repos →](https://github.com/orgs/Lucineer/repositories)
-[Fleet manifest →](https://github.com/Lucineer/capitaine/blob/master/docs/fleet/FLEET.md)
-
-</details>
-
-
-## License
+---
 
 MIT · Superinstance & Lucineer (DiGennaro et al.)
+
+---
+
+<div align="center">
+  <a href="https://the-fleet.casey-digennaro.workers.dev">The Fleet</a> · <a href="https://cocapn.ai">Cocapn</a>
+</div>
